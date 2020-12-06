@@ -18,6 +18,12 @@ async function run() {
             ? context.payload.comment.body
             : context.payload.pull_request.body;
     core.setOutput('comment_body', body);
+    
+    const comment_username =
+        context.eventName === "issue_comment"
+            ? context.payload.comment.user.login
+            : context.payload.pull_request.user.login;
+    core.setOutput('comment_username', comment_username);
 
     if (
         context.eventName === "issue_comment" &&
